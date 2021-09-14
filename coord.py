@@ -22,28 +22,33 @@ class CoordinatesRecognizer(PatternRecognizer):
                 0.6,
         ),
         Pattern(
-                "dd/mm/yyyy or dd/mm/yy",
+                "Latitude 1",
                 r"([1-8]?\d(\.\d+)|90(\.0+)?)[N|S]",  
                 0.6,
         ),
         Pattern(
-                "yyyy/mm/dd",
+                "Latitude 2",
                 r"[N|S]([1-8]?\d(\.\d+)|90(\.0+)?)",
                 0.6,
         ),
         Pattern(
-                "mm-dd-yyyy",
+                "Longitude 2",
                 r"[E|W](180(\.0+)|((1[0-7]\d)|([1-9]?\d))(\.\d+))",
                 0.6,
         ),
         Pattern(
-                "dd-mm-yyyy",
+                "Longitude 1",
                 r"(180(\.0+)|((1[0-7]\d)|([1-9]?\d))(\.\d+))[E|W]",
                 0.6,
         ),
         Pattern(
-                "yyyy-mm-dd",
+                "DMS",
                 r"((\d+)\s?\º|((\d+)\s?\˜°|((\d+)\s?\°)|(\d+)\s?\˚))\s?((\d+)\s?\’|(\d+)\s?\')?\s?((\d{1,}\.?\,?\d{0,}?)\")?\s?[N,S,E,W]",
+                0.6,
+        ),
+        Pattern(
+                "DMS 2",
+                r"[N,S,E,W]((\d+)\s?\º|((\d+)\s?\˜°|((\d+)\s?\°)|(\d+)\s?\˚))\s?((\d+)\s?\’|(\d+)\s?\')?\s?((\d{1,}\.?\,?\d{0,}?)\")?",
                 0.6,
         ),
     ]
