@@ -1,5 +1,5 @@
 
-# COORDINATES DOCUMENTATION
+# COORDINATES ANONYMIZATION
 
 The following functions were implemented with the help of **GeoPy**, a Python client useful for geocoding web services since it provides means not only to locate the coordinates of an address, a city or a country but also to do the reverse operation and measure distances.
 
@@ -7,19 +7,23 @@ Let's now introduce the functions:
 
 - `find_coordinates(location)` 
 
-Given the location, it returns the pair (latitude,longitude) in decimal degrees.
+Given a location in the form of a string , it returns its latitude and longitude in decimal degrees.
 
 - `wrap(latitude,longitude)`
 
-This function is called whether one of the two parameters(or both) is out of range and its needs to be put in range.
+This function is called if either or both the input parameters are out of range need to be put in range. 
+
+The correct values of the inputs in decimal degrees are returned.
 
 - `calculate_coordinates(*args)`
 
-Generates a new point on a circle around the original location
+Generates a new point on a circle around the original location, passed the form of a string or latitude and longitude together with the radius of the circle.
 
 - `within_a_circle(*args)`
 
-Generatse a new point within a circle around the original location
+Generates a new point within a circle around the original location 
+
+A `calculate_coordinates(*args)`is used to 
 
 - `donut_masking(*args)`
 
@@ -36,7 +40,7 @@ Generates a new point on the same bimodal gaussian distribution as the one passe
 
 # INSTALLATION
 
-  Working Enviroment:
+  Anonymizer and Working Enviroment:
 
   `$ pip3 install --upgrade pip`
 
@@ -48,7 +52,11 @@ Generates a new point on the same bimodal gaussian distribution as the one passe
   
   Geopy:
   
-    `$ pip3 install geopy`
+  `$ pip3 install geopy`
+  
+  Now that the set up is complete!
+  
+  # SOME EXAMPLES
   
   
   
