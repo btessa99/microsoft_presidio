@@ -1,51 +1,94 @@
 
-l1,l2 = calculate_coordinates(51.50085578008017, -0.12472204631096782,6)
+from random import uniform
+from re import X
+import unittest
+from funzioni import *
+import geopy.distance
+from geopy.point import Point
+import numpy
 
-l1,l2 = calculate_coordinates('London',6)
 
-l1,l2 = donut_masking(51.50085578008017, -0.12472204631096782,10,16)
+class TestSum(unittest.TestCase):
 
-l1,l2 = donut_masking('Berlin',10,16)
+    def test_calculate_coordinates(self):
 
-l1,l2 = within_a_circle(51.50085578008017, -0.12472204631096782,6)
+        for i in range (0,10):
 
-l1,l2 = within_a_circle('Athens',6)
+            print('Testing function calculate_coordinates. Test N ' ,i+1)
+               
+            lat = uniform(-90,90)
+            print('latitude: ',lat)
 
-l1,l2 = bimodal_gaussian(44.0510268315349, 10.059425432817703,0.5,'Carrara',0.5)
+            lon = uniform(-180,180)
+            print('latitude: ',lon)
 
-l1,l2 = bimodal_gaussian('London',0.5,'Wembley',0.5)
+            radius = random.random() * 10
+            print('radius: ',radius)
 
-l1,l2 = bimodal_gaussian(45.647777165237784, -74.37118024765526,0.7,45.64964117345706, -74.09120131874,0.7)
+            l1,l2 = calculate_coordinates(lat,lon,radius)
+            p1 = Point(lat,lon)
+            p2 = Point(l1,l2)
+            distance =geopy.distance.great_circle(p1,p2).kilometers
+            print()
+            
+            assert round(distance,0) == round(radius,0), 'The distance does not equal the raius'
 
-l1,l2 = standard_gaussian('Marina di Carrara',0.01)
 
-l1,l2 = standard_gaussian(37.794932, 23.879845,0.6)
 
-l1,l2 = calculate_coordinates('175 5th Avenue NYC',9)
+    def test_within_a_circle(self):
 
-l1,l2 = calculate_coordinates('9 Via Sant\'Andrea MI',9)
+          for i in range (0,10):
+    
+            print('Testing function within_a_circle. Test N ' ,i+1)
+               
+            lat = uniform(-90,90)
+            print('latitude: ',lat)
 
-l1,l2 = bimodal_gaussian('Carrara',0.5,44.0510268315349, 10.059425432817703,0.5)
+            lon = uniform(-180,180)
+            print('latitude: ',lon)
 
-l1,l2 = within_a_circle('13 Rue de Rivoli FR',6)
+            radius = random.random() * 10
+            print('radius: ',radius)
 
-l1,l2 = donut_masking('13 Rue de Rivoli FR',10,10)
+            l1,l2 = within_a_circle(lat,lon,radius)
+            p1 = Point(lat,lon)
+            p2 = Point(l1,l2)
+            distance =geopy.distance.great_circle(p1,p2).kilometers
+            print('with ', radius)
+            print()
 
-l1,l2 = donut_masking('13 Rue de Rivoli FR',10,5)
+            assert distance < radius , 'The distance is not lower than the radius'
 
-l1,l2 = donut_masking('13 Rue de Rivoli FR',10,10)
 
-l1,l2 = within_a_circle('Athens',-6)
+    def test_donut_masking(self):
+ 
+         for i in range (0,10):
+        
+            print('Testing function donut_masing. Test N ' ,i+1)
+               
+            lat = uniform(-90,90)
+            print('latitude: ',lat)
 
-l1,l2 = bimodal_gaussian('Carrara',0.5,44.0510268315349, 10.059425432817703,0.5)
+            lon = uniform(-180,180)
+            print('latitude: ',lon)
 
-l1,l2 = bimodal_gaussian(44.0510268315349, 10.059425432817703,0.5,'Carrara',0.5)
+            int_radius = random.random() * 10
+            print('internal radius: ',int_radius)
 
-l1,l2 = bimodal_gaussian('Massa',0.5,'Carrara',0.5)
+            ext_radius = int_radius + random.random() * 10
+            print('external radius: ',ext_radius)
 
-l1,l2 = bimodal_gaussian(90, 120.2323,0.5,90,34.45764,0.5)
+            l1,l2 = donut_masking(lat,lon,int_radius,ext_radius)
+            p1 = Point(lat,lon)
+            p2 = Point(l1,l2)
+            distance =geopy.distance.great_circle(p1,p2).kilometers
 
-l1,l2 = within_a_circle(-170,-245,6)
+            print()
 
-l1,l2 = donut_masking(90.1,56,20,10)
+            assert distance < ext_radius and distance > int_radius , 'The distance is not in between the internal and radius'
+        
 
+
+
+if __name__ == '__main__':
+    unittest.main()
