@@ -13,6 +13,8 @@ Given a location in the form of a string , it returns its latitude and longitude
 
 This function is called if either or both the input parameters are out of range need to be put in range. 
 
+The normalisation of the longitude requires adding or subtracting 360 to the value until it's normalised while the latitude requires flipping the longitude whenever it crosses a pole.
+
 The correct values of the inputs in decimal degrees are returned.
 
 - `calculate_coordinates(*args)`
@@ -40,21 +42,25 @@ Generates a new point on the same bimodal gaussian distribution as the one passe
 
 # INSTALLATION
 
-  Anonymizer and Working Enviroment:
+  #### Working Enviroment:
 
   `$ pip3 install --upgrade pip`
-
-  `$ pip3 install presidio-anonymizer`
 
   `$ pip3 install spacy numpy`
 
   `$ python3 -m spacy download en_core_web_lg`
   
-  Geopy:
+  #### Analyzer
+  
+  #### Anonymizer
+  
+  #### Geopy:
   
   `$ pip3 install geopy`
   
-  Now that the set up is complete!
+  Now the set up is complete!
+  
+  
   
   # SOME EXAMPLES
   
