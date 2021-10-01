@@ -55,21 +55,21 @@ Let's now introduce the functions:
     Since a bimodal is composed of two standard distributions, the idea is to randomly choose one and call the standard_gaussian() function to find the new coordinates and           return them.
 
 
-    ## INSTALLATION
+ ## INSTALLATION
 
-     #### Working Enviroment:
+ #### Working Enviroment:
 
-        `pip install presidio_analyzer`
+`$ pip install presidio_analyzer`
 
-        `pip install presidio_anonymizer`
+`$ pip install presidio_anonymizer`
 
-        `python -m spacy download en_core_web_lg`
+`$ python -m spacy download en_core_web_lg`
 
-     #### Analyzer Entity Recognizer set up:
+ #### Analyzer Entity Recognizer set up:
 
 
-     #### Anonymizer PII Operator set up:
+ #### Anonymizer PII Operator set up:
 
-     #### Geopy:
+ #### Geopy:
 
-        `$ pip3 install geopy`
+`$ pip3 install geopy`
