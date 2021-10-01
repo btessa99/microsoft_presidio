@@ -1,7 +1,11 @@
 
 # COORDINATES ANONYMIZATION
 
-The following functions were implemented with the help of **GeoPy**, a Python client useful for geocoding web services since it provides means not only to locate the coordinates of an address, a city or a country but also to do the reverse operation and measure distances.
+The Anonimyzer module can be extended by creating a new PII Operator, which is in its turn an extention of the abstract class Operator.
+
+Besides implementing the operate, validate, operator_name, operator_type methods, there are other useful functions that can help with the anonimyzation process and dare described below.
+
+All of them were implemented with the help of **GeoPy**, a Python client useful for geocoding web services since it provides means not only to locate the coordinates of an address, a city or a country but also to do the reverse operation and measure distances.
 
 Let's now introduce the functions:
 
@@ -59,16 +63,13 @@ Let's now introduce the functions:
 
  #### Working Enviroment:
 
-`$ pip install presidio_analyzer`
-
 `$ pip install presidio_anonymizer`
 
 `$ python -m spacy download en_core_web_lg`
 
- #### Analyzer Entity Recognizer set up:
+`$ git clone ...`
 
-
- #### Anonymizer PII Operator set up:
+Add geocoordinates.py to presidio_anonymizer/operators/init.py and restart the anonimyzer.
 
  #### Geopy:
 
