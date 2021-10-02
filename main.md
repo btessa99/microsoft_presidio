@@ -10,8 +10,8 @@ This was possible by extending the analyzer and anonimyzer modules of [Microsoft
 
 In the following folders you can find more information about the set up and the implementation:
 
-- Analyzer
-- [Anonimyzer](https://github.com/btessa99/Tesi-Anonimyzer/blob/main/documentation_tessa.md)
+- (Analyzer) (https://github.com/btessa99/Tesi-Anonimyzer/blob/main/analyzer.md)
+- [Anonimyzer](https://github.com/btessa99/Tesi-Anonimyzer/blob/main/anonimyzer.md)
 
 
 
