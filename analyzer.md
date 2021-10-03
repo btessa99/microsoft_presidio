@@ -18,7 +18,7 @@ The CoordinatesRecognizer class, as a matter of fact, is composed of a list of r
 
 `$ python -m spacy download en_core_web_lg`
 
-`$ git clone ...`
+`$ git clone https://github.com/btessa99/microsoft_presidio.git`
 
 Add coordinates_recognizer.py to presidio_analyzer/predefined_recognizers
 
