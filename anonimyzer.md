@@ -102,7 +102,7 @@ Let's now describe them:
 
 `$ python -m spacy download en_core_web_lg`
 
-`$ git clone ...`
+`$ git clone https://github.com/btessa99/microsoft_presidio.git`
 
 Add geocoordinates.py to presidio_anonymizer/operators
 Add Geocoordinates to presidio_anonymizer/operators/init.py
