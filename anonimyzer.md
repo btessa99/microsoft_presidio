@@ -104,7 +104,21 @@ Let's now describe them:
 
 `$ git clone ...`
 
-Add geocoordinates.py to presidio_anonymizer/operators/init.py and restart the anonimyzer.
+Add geocoordinates.py to presidio_anonymizer/operators
+Add Geocoordinates to presidio_anonymizer/operators/init.py
+
+        __all__ = ["OperatorType",
+           "Operator",
+           "Hash",
+           "Mask",
+           "Redact",
+           "Replace",
+           "Custom",
+           "Encrypt",
+           "Decrypt",
+           "Geocoordinates",
+           "OperatorsFactory"]
+   Restart the anonimyzer
 
  #### Geopy:
 
