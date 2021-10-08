@@ -67,12 +67,12 @@ class TestSum(unittest.TestCase):
             n_entities_to_recognize = 0
             false_neg = []
 
-            #count how many Geolocation entities were we supposed to recognize
+          
             for j in range(0,len(data[i]['label'])-1):
              entity = data[i]['label'][j]
              if(entity[2] == "Geolocation"):
-                    n_entities_to_recognize = n_entities_to_recognize + 1
-                    if(not entity in entities_recognized):
+                    n_entities_to_recognize = n_entities_to_recognize + 1   #count how many Geolocation entities were we supposed to recognize
+                    if(not entity in entities_recognized):   #If an entity that was supposed to be recognized is not, then it's a false negative
                         start_index = int(entity[0])
                         end_index = int(entity[1])
                         false_neg.append(text[start_index:end_index])
