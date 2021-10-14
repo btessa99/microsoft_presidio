@@ -97,7 +97,7 @@ class TestSum(unittest.TestCase):
 
                 locations_recognized = []
 
-                if(tag == "Text_Column"):
+                if(tag == "Text_Column"): #we need to analyze the text to check if it containsany geolocation 
                     doc = nlp(my_text) #analyze the text
 
                     for j in range(0,len(doc.entities)):   #save the entities recognized
@@ -105,7 +105,7 @@ class TestSum(unittest.TestCase):
                             entity = json.loads(str(doc.entities[j])) #conversion from json to python
                             locations_recognized.append(entity)
 
-                else:
+                else: #the column contains only geolocations
                     locations_recognized.append({"text":my_text,"type":"GPE","start_char":0,"end_char":len(my_text)})
 
 
