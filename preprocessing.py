@@ -15,7 +15,7 @@ import json
 import unittest
 import stanza
 
-#stanza.download('en') # download English model
+stanza.download('en') # download English model
 
 nlp = spacy.load('en_core_web_lg')
 
@@ -25,6 +25,9 @@ from presidio_anonymizer.entities.engine import RecognizerResult, OperatorConfig
 # Initialize the engine with logger.
 
 nlp = stanza.Pipeline('en')
+
+def sortTag(obj):
+    return obj[2]
 
 class TestSum(unittest.TestCase):
 
@@ -38,7 +41,8 @@ class TestSum(unittest.TestCase):
 
             text = data[i]['data']
 
-            data[i]['label'].sort
+            #sort by tag in reversed lexicographical order
+            data[i]['label'].sort(key = sortTag ,reverse = True)
 
             tag = data[i]['label'][0][2]
             print(tag)
