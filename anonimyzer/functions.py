@@ -24,7 +24,7 @@ def find_coordinates(self,location):
     try:
         location = geolocator.geocode(location)
     except:
-        return find_coordinates(location) #request again the location if a timeOut is received
+        return find_coordinates(self,location) #request again the location if a timeOut is received
     return location.latitude, location.longitude
 
 
