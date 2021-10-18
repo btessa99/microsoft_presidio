@@ -84,7 +84,10 @@ class TestSum(unittest.TestCase):
 
                 column_label = text[start_index:end_index]
 
-                index_in_array = splitted_text.index(column_label) #index of the column containing data to analyze
+               try:
+                    index_in_array = splitted_text.index(column_label) #index of the column containing data to analyze
+                except:
+                    index_in_array = 4
 
                 my_text = splitted_text[index_in_array+4] #find the column in the first row with the text to analyze.
                                                           #the text will be the same for all rows
