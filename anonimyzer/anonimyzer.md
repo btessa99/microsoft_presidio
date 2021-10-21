@@ -106,6 +106,8 @@ Let's now describe them:
 
 Add geocoordinates.py to presidio_anonymizer/operators
 Add Geocoordinates to presidio_anonymizer/operators/init.py
+    
+        from .geocoordinates import Geocoordinates
 
         __all__ = ["OperatorType",
            "Operator",
