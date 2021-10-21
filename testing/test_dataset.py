@@ -74,6 +74,6 @@ for i in range(0,len(data)):
         anonimyzer_result = anonimyzer.anonymize(data[i]['data'] , total_entities, operators={"Geolocation": OperatorConfig("geocoordinates", {"function":"calculate_coordinates","radius":5})})
         print(anonimyzer_result.text)
 
-print("NUMBER OF ENTITIES RECOGNIZED: ",count,"NUMBER OF ENTITIES TO RECOGNIZE: ",total,"FALSE POSITIVES: ",total - count)
+print("NUMBER OF ENTITIES RECOGNIZED: ",count,"NUMBER OF ENTITIES TO RECOGNIZE: ",total,"FALSE NEGATIVES: ",total - count)
 
 
