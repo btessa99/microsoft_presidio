@@ -16,7 +16,7 @@ with open('dataset.json') as dataset:
 
     loaded_dataset =  json.load(dataset)
 
-    new_json_file  = open("new.json","a")
+    new_json_file  = open("new_dataset.json","a")
     lines_to_write = []
     json_row = 0
        
