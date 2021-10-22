@@ -9,9 +9,6 @@ def find_nth(haystack, needle, n):
         n -= 1
     return start
 
-def write_to_json(line,json_row):
-    return
-
 with open('dataset.json') as dataset:
 
     loaded_dataset =  json.load(dataset)
