@@ -53,7 +53,7 @@ class CoordinatesRecognizer(PatternRecognizer):
         ),
     ]
 
-    CONTEXT = ["coordinates"]
+    CONTEXT = ["coordinates","latitude","longitude","north","south","east","west"]
 
     def __init__(
         self,
