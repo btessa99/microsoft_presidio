@@ -1,9 +1,9 @@
 
 # COORDINATES ANONYMIZATION
 
-The Anonimyzer module can be extended by creating a new PII Operator, which is in its turn an extention of the abstract class Operator.
+The Anonymizer module can be extended by creating a new PII Operator, which is in its turn an extention of the abstract class Operator.
 
-By default, it transorms the coordinates into the string <GEO_COORDINATES> but, if specified, can put into practise more sophosticated anonimysations thanks to functions implemented with the help of **GeoPy**, a Python client useful for geocoding web services since it provides means not only to locate the coordinates of an address, a city or a country but also to do the reverse operation and measure distances.
+By default, it transorms the coordinates into the string <GEO_COORDINATES> but, if specified, can put into practise more sophosticated anonymisations thanks to functions implemented with the help of **GeoPy**, a Python client useful for geocoding web services since it provides means not only to locate the coordinates of an address, a city or a country but also to do the reverse operation and measure distances.
 
 Let's now describe them:
 
