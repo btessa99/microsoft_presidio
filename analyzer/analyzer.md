@@ -36,7 +36,7 @@ The recognizer_map should look like this:
                 UsSsnRecognizer,
                 NhsRecognizer,
                 SgFinRecognizer,
-                CoordinatesRecognizer,
+  
             ],
             "es": [EsNifRecognizer],
             "ALL": [
@@ -48,6 +48,7 @@ The recognizer_map should look like this:
                 IbanRecognizer,
                 IpRecognizer,
                 MedicalLicenseRecognizer,
+                CoordinatesRecognizer,
                 nlp_recognizer,
             ],
         }
