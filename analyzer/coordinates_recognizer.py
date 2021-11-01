@@ -8,7 +8,7 @@ import regex as re
 
 class CoordinatesRecognizer(PatternRecognizer):
     """
-    Recognize date using regex.
+    Recognize coordinates using regex.
     :param patterns: List of patterns to be used by this recognizer
     :param context: List of context words to increase confidence in detection
     :param supported_language: Language this recognizer supports
