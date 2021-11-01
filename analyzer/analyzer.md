@@ -1,6 +1,6 @@
 # COORDINATES RECOGNITION
 
-The new recognizer implemented is based on the PatternRecognition class, since it supports regex based recognition.
+The new recognizer implemented is based on the PatternRecognizer class, since it supports regex based recognition.
 
 The CoordinatesRecognizer class, as a matter of fact, is composed of a list of regular expression :
 
