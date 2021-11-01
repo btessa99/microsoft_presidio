@@ -130,7 +130,7 @@ Add Geocoordinates to presidio_anonymizer/operators/init.py
     
 Let's supposed we have this text to anonimyze:
 
- text =  `The city center lies approximately on latitude 7° 30' N and longitude 30° 54' E. the humid lowland rain forest region with two distinctive seasons`
+`The city center lies approximately on latitude 7° 30' N and longitude 30° 54' E. the humid lowland rain forest region with two distinctive seasons`
 
 and we want to replace the coordinates with a latiude and a longitude of a point 2 km distant from that city.
 
