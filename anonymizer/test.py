@@ -31,7 +31,7 @@ class TestSum(unittest.TestCase):
             distance =geopy.distance.great_circle(p1,p2).kilometers
             print()
             
-            assert round(distance,0) == round(radius,0), 'The distance does not equal the raius'
+            assert round(distance,0) == round(radius,0), 'The distance does not equal the radius'
 
 
 
