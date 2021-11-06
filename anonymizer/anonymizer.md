@@ -90,6 +90,9 @@ Let's now describe them:
     Generates a new point on the same bimodal gaussian distribution as the one passed as argument.
 
     Since a bimodal is composed of two standard distributions, the idea is to randomly choose one and call the standard_gaussian() function to find the new coordinates and           return them.
+    
+    
+If only the latitude or longitude is given as a input to one of the functions, the single anonymized coordinate in DMS is returned
 
 
  ## INSTALLATION
