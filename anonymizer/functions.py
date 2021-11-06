@@ -9,6 +9,7 @@ from geopy.units import kilometers, radians
 import numpy
 from numpy.core.numerictypes import ScalarType
 import re
+from random import uniform
 
 
 def find_coordinates(self,location):
@@ -25,6 +26,10 @@ def find_coordinates(self,location):
         location = geolocator.geocode(location)
     except:
         return find_coordinates(self,location) #request again the location if a timeOut is received
+
+    if(not location): #location not recognized
+       return 0,0
+        
     return location.latitude, location.longitude
 
 
@@ -43,46 +48,62 @@ def from_dms_to_dd (self,coordinate_dms):
 
 
 
-
-
 def calculate_coordinates(self,*args): 
+
+    
 
     """
     Chooses a random point on a circle around the original location 
     args:
         case 2 parameters:
-            a city or an address (string)
+            a city or an address (string) 
             radius in kilometers(float)
 
         case 3 parameters:
-            latitude (float/integer if it's in decimal degrees or string if it's in decimal minutes seconds)
-            longitude float/integer if it's in decimal degrees or string if it's in decimal minutes seconds)
+            latitude (float/integer)
+            longitude (float/integer)
             radius in kilometers(float/integer)
 
     """
+    print(len(args))
 
     start_latitude,start_longitude,radius = 0,0,0
 
 
     if(len(args) == 2): #case 2. We need to find the coordinates of the location
         radius = args[1]
-        start_latitude,start_longitude = find_coordinates( self,args[0] )
+        location = args[0]
+        if(("º" in location ) or ("°" in location) or ("°" in location) or ("˚" in location)): #location expressed with coordinates in DMS format
+            if("N" in location or "S" in location):
+                start_latitude = from_dms_to_dd(self,location)
+            else:
+                start_longitude = from_dms_to_dd(self,location)
+                
+        elif("." in location): # a single coordinate is given
+            if("N" in location or "S" in location): #single latitude
+                start_latitude = location.strip('NS+-')
+            elif("E" in location or "W" in location): #single longitude
+                start_longitude = location.strip('EW+-')
+            else:
+                start_latitude,start_longitude = location.split(",")
+
+
+        else:
+            start_latitude,start_longitude = find_coordinates( self,location )
+
     else:
         radius = args[2]
         if(type(args[1]) == float):
-             start_latitude,start_longitude = float(args[0]),float(args[1])
-        else:
-            start_latitude,start_longitude = from_dms_to_dd(self,args[0]), from_dms_to_dd(self,args[1])
+            start_latitude,start_longitude = float(args[0]),float(args[1])
 
-
-    if(start_latitude <= -90 or start_latitude >= 90):
-        raise Exception('INVALID LATITUDE')
+            if(start_latitude <= -90 or start_latitude >= 90):
+                raise Exception('INVALID LATITUDE')
     
 
-    if(start_longitude <= -180 or start_longitude >= 180):
-        raise Exception('INVALID LONGITUDE')
+            if(start_longitude <= -180 or start_longitude >= 180):
+                raise Exception('INVALID LONGITUDE')
 
-
+        
 
     start = geopy.Point(start_latitude, start_longitude) #create a new geodetic point representing the original location
 
@@ -96,7 +117,18 @@ def calculate_coordinates(self,*args):
     dest = distance.destination(point=start, bearing=random_displacement)
 
     # Return the pair (latitude,longitude) representing the new point
-    return dest.latitude,dest.longitude
+    if(start_longitude == 0):
+        direction = "N"
+        if(dest.latitude < 0):
+            direction = "S"
+        return str(abs(dest.latitude))+direction,0
+    elif(start_latitude == 0):
+        direction = "E"
+        if(dest.latitude < 0):
+            direction = "W"
+        return 0,str(abs(dest.longitude))+direction
+    else:
+        return dest.latitude,dest.longitude
 
 
 
@@ -185,8 +217,19 @@ def standard_gaussian(self,location,variance):
 
     if "," in location:       #check if location represents a couple of coordinates or a city/address
         lat,lon = location.split(",")
-        if(type(lat) != float):
+        if(type(lat) != float): #pair of coordinates in DMS format
             lat,lon = from_dms_to_dd(self,lat),from_dms_to_dd(self,lon)
+    else:
+        if(("º" in location ) or ("°" in location) or ("°" in location) or ("˚" in location)): #only latitude or longitude given in DMS format
+            if("N" in location or "S" in location):
+                lat = from_dms_to_dd(self,location)
+
+            else:
+                lon = from_dms_to_dd(self,location)
+        else:
+            lat,lon = find_coordinates( self,location )
+
+
     
 
     if(lat <= -90 or lat >= 90):
@@ -264,4 +307,5 @@ def wrap(self,latitude,longitude):
     longitude = (longitude + 180) % 360 - 180 #fix the longitude
 
     return latitude,longitude
+
 
