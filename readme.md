@@ -11,7 +11,7 @@ This was possible by extending the Analyzer and Anonimyzer modules of [Microsoft
 In the following folders you can find the classes used for the extention :
 
 - [Analyzer](https://github.com/btessa99/Tesi-Anonimyzer/blob/main/analyzer/analyzer.md)
-- [Anonimyzer](https://github.com/btessa99/Tesi-Anonimyzer/blob/main/anonimyzer/anonimyzer.md)
+- [Anonimyzer](https://github.com/btessa99/Tesi-Anonimyzer/blob/main/anonymizer/anonymyier.md)
 
 
 
