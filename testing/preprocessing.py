@@ -1,103 +1,133 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[2]:
+
+
 import json
 
-def find_nth(haystack, needle, n):
 
-    '''Return the position of the n-th (n starts at 0) needle string in the haystack string. Return -1 if not found.'''
+# In[57]:
+
+
+def find_nth(haystack, needle, n):
     start = haystack.find(needle)
     while start >= 0 and n >= 1:
         start = haystack.find(needle, start+len(needle))
         n -= 1
     return start
 
-with open('dataset.json') as dataset:
 
-    loaded_dataset =  json.load(dataset)
 
-    new_json_file  = open("new_dataset.json","a")
-    lines_to_write = []
-    json_row = 0
-       
-    for line in loaded_dataset:
 
-        data = line['data']
-        labels = line['label']
+from collections import namedtuple
+import re
 
-        header = data.split('\n')[0]
 
-        # Remove No_Tag label, print empty labels, and continue
-        if labels[0][2] == 'No_Tag':
+Label = namedtuple('Label', 'start, end, tag')
+
+with open('/Users/bened/Downloads/pira_dataset2.jsonl') as dataset:
+    lines = []
+#with open('/Users/khast/Downloads/tessa/microsoft_presidio/testing/test.json') as dataset:
+    for line in dataset:
+        line = json.loads(line) 
+        original_data = line['data']
+        new_data = re.sub('[^0-9a-zA-Z]', ' ', original_data)
+        original_labels = line['label']
+        named_labels = [Label._make(l) for l in original_labels]
+
+        header = original_data.split('\n')[0]
+
+        if named_labels[0].tag == 'No_Tag':
             line['label'] = []
-            #print(line)
+            line['data'] = new_data
+            continue
+    
+        named_labels  = [x for x in named_labels if x.tag not in ('No_Tag', 'Text_Column')]
+        header_labels = [x for x in named_labels if x.start < len(header)]
+        other_labels  = [x for x in named_labels if x.start >= len(header)]
+        
+        if not header_labels:
+            tmp = []
+            for x in named_labels:
+                if x.tag == 'Geolocation':
+                    tmp += [[x.start, x.end, 'GPE']]
+                else:
+                    tmp += [list(x)]
+            line['label'] = tmp
+            line['data'] = new_data
+            lines.append(line)
+            #print(json.dumps(line))
             continue
 
-        # Useful labels
-        clean_labels = [x for x in labels if x[2] != 'No_Tag' and x[2] != 'Text_Column']
-        
-        # Useful labels in the header
-        header_labels = [x for x in clean_labels if x[1] <= len(header)]
-        #print(header_labels)
 
         # Column id (starting at 0) of the useful labels in the header
-        header_labels_colid = [header[:x[1]].count(';') for x in header_labels]
-        #print(header_labels_colid)
-
-        
-        # If nothing to be fixed, print cleaned labels, and continue
-        if not header_labels:
-            line['label'] = clean_labels
-            lines_to_write.append(line)
-            continue
+        header_label_ids = [header[:x[1]].count(';') for x in header_labels]
 
         new_labels = []
-
         # for each new label + id
-        for lab, cid in zip(header_labels, header_labels_colid):
-            
+        for lab, cid in zip(header_labels, header_label_ids):
             # offset from the start of the data
+#            print(len(header), header)
             start_pos = 1 + len(header) # +1 takes into account the newline char
             # for each non-header row in data:
-            for row in data.split('\n')[1:-1]: # the very last row is empty, all lines are newline-terminated
-                
+            for row in original_data.strip().split('\n')[1:]: # the very last row is empty, all lines are newline-terminated
+#                print(len(row), row, cid)
                 if cid == 0: # first column
                     p_start = 0
                     p_end = find_nth(row, ';', cid)
-   
                 else: # other columns
                     p_start = 1 + find_nth(row, ';', cid-1) # +1 takes into account the ; char
                     p_end = find_nth(row, ';', cid)
-                    
-                    if p_end == -1: # last column
-                        p_end = len(row)
-                        
-                new_labels.append([start_pos + p_start, start_pos + p_end, lab[2]])
+                if p_end == -1: # last column
+                    p_end = len(row)
+#                print(p_start, p_end)    
+#                print('---', Label(start_pos + p_start, start_pos + p_end, lab[2]))
+                new_labels.append(Label(start_pos + p_start, start_pos + p_end, lab[2]))
                 start_pos += 1 + len(row) # +1 takes into account the newline char
-                
+            # line['label'] = [tuple(x) for x in other_labels + new_labels]
+            
+        tmp = []
+        for x in other_labels + new_labels:
+            if x.tag == 'Geolocation':
+                tmp += [[x.start, x.end, 'GPE']]
+            else:
+                tmp += [list(x)]
+        line['label'] = tmp
+        line['data'] = new_data
+        lines.append(line)
 
-        line['label'] = [x for x in clean_labels if x[1] > len(header)] + new_labels
-        lines_to_write.append(line)
+        continue
 
 
-#print lines into a new json file used for testing
 
-for n_line in range(0,len(lines_to_write)):
+with open('/Users/bened/AppData/Local/Programs/Python/Python39/new_dataset.json',"w") as dataset:
 
-    l = json.dumps(lines_to_write[n_line])
+    for n_line in range(0,len(lines)):
+    
+        l = json.dumps(lines[n_line])
 
-    if( n_line == 0): #json arrays must start with a [ and objects must be separated with a ,
-        json_to_write = "[" + l + ",\n"
+        if( n_line == 0): #json arrays must start with a [ and objects must be separated with a ,
+            json_to_write = "[" + l + ",\n"
 
 
-    elif(n_line == len(lines_to_write)-1): #json arrays must end with a ]
-        json_to_write = l + "]"
+        elif(n_line == len(lines)-1): #json arrays must end with a ]
+            json_to_write = l + "]"
 
-    else:
-        json_to_write = l + ",\n"
-        
-    new_json_file.write(json_to_write)
+        else:
+            json_to_write = l + ",\n"
 
-new_json_file.close()
-        
+        dataset.write(json_to_write)
 
-        
+print("PREPROCESSING COMPLETED")
+
  
+
+
+
+
+
+
+
+
 
