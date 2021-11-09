@@ -2,8 +2,7 @@
 
 To perform tests on the Pira dataset, do as follows:
 
-- 1: Clone this repository `$ git clone https://github.com/btessa99/microsoft_presidio.git`
- and download the PIRA dataset *pira_dataset.json* at [this link](https://github.com/tonellotto/pira-project/tree/main/deliverable2)
+- 1: Clone this repository `$ git clone https://github.com/btessa99/microsoft_presidio.git` and add under the microsoft_presidio/testing folder the PIRA dataset contained in the *pira_dataset.json* file at [this link](https://github.com/tonellotto/pira-project/tree/main/deliverable2) 
 
 - 2: ` $python -m spacy download it_core_news_sm`
 
