@@ -47,7 +47,7 @@ The server uses the original text and eventually json files containing the optio
 
 To run examples:
 
-    $ git clone https://github.com/biagiocornacchia/microsoft-presidio.git
+    $ git clone https://github.com/btessa99/microsoft-presidio.git
     
     $ pip3 install --upgrade pip
     $ pip3 install presidio-analyzer
@@ -114,6 +114,19 @@ Analyzer results saved into `analyzer-results/` folder (analyzer-results/demo2-r
     { "start": 73, "end": 81, "score": 0.65, "entity_type": "US_DRIVER_LICENSE" }
 
 ## NOTE
+
+# COORDINATES RECOGNITION
+
+The new recognizer implemented is based on the PatternRecognizer class, since it supports regex based recognition.
+
+The CoordinatesRecognizer class, as a matter of fact, is composed of a list of regular expression :
+
+- Decimal Degrees Coordinates: `[-+]?([1-8]?\d(\.\d+)|90(\.0+)?),\s*[-+]?(180(\.0+)|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)`
+
+- Latitude: `([1-8]?\d(\.\d+)|90(\.0+)?)[N|S]` or `[N|S]([1-8]?\d(\.\d+)|90(\.0+)?)`
+- Longitude: `[E|W](180(\.0+)|((1[0-7]\d)|([1-9]?\d))(\.\d+))` or `(180(\.0+)|((1[0-7]\d)|([1-9]?\d))(\.\d+))[E|W]`
+- Degrees Minutes Seconds: `((\d+)\s?\º|((\d+)\s?\˜°|((\d+)\s?\°)|(\d+)\s?\˚))\s?((\d+)\s?\’|(\d+)\s?\')?\s?((\d{1,}\.?\,?\d{0,}?)\")?\s?[N,S,E,W]` or `[N,S,E,W]((\d+)\s?\º|((\d+)\s?\˜°|((\d+)\s?\°)|(\d+)\s?\˚))\s?((\d+)\s?\’|(\d+)\s?\')?\s?((\d{1,}\.?\,?\d{0,}?)\")?`
+
 
 It is also possible adapt Presidio to detect new types of PII entities.
 1. Deny-list based PII recognition
