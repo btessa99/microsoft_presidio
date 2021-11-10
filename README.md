@@ -1,4 +1,4 @@
-# Distributed Personal Information Recognition system using gRPC
+# RECOGNITION AND ANONIMYZATION OF GEOGRAPHIC COORDINATES USING MICROSOFT PRESIDIO
 
 This project aims at:
 
