@@ -454,3 +454,10 @@ docker run –dp 8061:8061 grpc-anonymizer
 ```console
 python data_loader.py
 ```
+to run general examples or 
+
+```console
+python dataloader_pira.py
+```
+to run more specific examples
+
