@@ -109,6 +109,8 @@ If only the latitude or longitude is given as a input to one of the functions, t
 
 `$ python -m spacy download en_core_web_lg`
 
+`$ python -m spacy download it_core_news_sm`
+
 `$ git clone https://github.com/btessa99/microsoft_presidio.git`
 
 `$ pip3 install geopy`
