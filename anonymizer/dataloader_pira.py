@@ -215,7 +215,6 @@ def exit():
 
 if __name__ == "__main__":
 
-    clientAnonymizer = anonymizer.ClientEntity("localhost", "8061")
 
     try:
         while True:
