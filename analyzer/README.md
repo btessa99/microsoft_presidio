@@ -47,7 +47,7 @@ The server uses the original text and eventually json files containing the optio
 
 To run examples:
 
-    $ git clone https://github.com/btessa99/microsoft-presidio.git
+    $ git clone https://github.com/btessa99/microsoft_presidio.git
     
     $ pip3 install --upgrade pip
     $ pip3 install presidio-analyzer
@@ -117,7 +117,7 @@ Analyzer results saved into `analyzer-results/` folder (analyzer-results/demo2-r
 
 # COORDINATES RECOGNITION
 
-The new recognizer implemented is based on the PatternRecognizer class, since it supports regex based recognition.
+The new recognizer implemented for recognizing the geocoordinates is based on the PatternRecognizer class, since it supports regex based recognition.
 
 The CoordinatesRecognizer class, as a matter of fact, is composed of a list of regular expression :
 
