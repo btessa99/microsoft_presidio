@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+service AnonymizerEntity {
+    rpc sendRecognizerResults(stream RecognizerResult) returns (FileAck); // sends analyzer results
+    rpc sendAnonymizedItems(stream AnonymizedItem) returns (FileAck); // sends anonymizer results
+    rpc sendConfig(Config) returns (FileAck); // sends anonymizers or deanonymizers 
+    rpc sendFile(stream DataFile) returns (FileAck);
+    rpc getText(Request) returns (stream DataFile);
+    rpc getItems(Request) returns (stream Item);
+}
+
+message Request {
+    string uuidClient = 1;
+    string type = 2; // anonymize or deanonymize
+}
+
+message DataFile {
+    string chunk = 1;
+}
+
+message Config {
+    string uuidClient = 1;
+    string operators = 2;
+    string type = 3; // anonymize or deanonymize
+}
+
+message FileAck {
+    string uuidClient = 1;
+    optional int32 chunks = 2;
+}
+
+message Item {
+    string operator = 1;
+    string entity_type = 2;
+    int32 start = 3;
+    int32 end = 4;
+    string text = 5;
+}
+
+message RecognizerResult {
+    int32 start = 1;
+    int32 end = 2;
+    float score = 3;
+    string entity_type = 4;
+    string uuidClient = 5; 
+}
+
+message AnonymizedItem {
+    int32 start = 1;
+    int32 end = 2;
+    string entity_type = 3;
+    string operator = 4;
+    string uuidClient = 5; 
+}

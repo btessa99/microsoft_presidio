@@ -1,0 +1,1 @@
+{ "entity_type" : "LOCATION", "params" : "{ \"type\": \"geocoordinates\" , \"function\": \"within_a_circle\", \"radius\" : 4.0, \"radius2\":0.0 , \"variance\":0.0, \"location2\":\"0\",\"variance2\":0.0 }" }
