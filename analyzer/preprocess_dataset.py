@@ -1,9 +1,14 @@
 
 
+
 import json
 from collections import namedtuple
 import re
+import os
 
+LOCATE_PY_FILENAME = __file__
+LOCATE_PY_DIRECTORY_PATH = os.path.abspath(os.path.dirname(__file__))
+LOCATE_PY_PARENT_DIR = os.path.abspath(os.path.join(LOCATE_PY_DIRECTORY_PATH, ".."))
 
 def find_nth(haystack, needle, n):
     start = haystack.find(needle)
@@ -19,7 +24,7 @@ def preprocess_file():
     Label = namedtuple('Label', 'start, end, tag')
 
 
-    with open('/Users/bened/microsoft-presidio/analyzer/pira_dataset.jsonl') as dataset:
+    with open(LOCATE_PY_PARENT_DIR + '/pira_dataset.jsonl') as dataset:
         lines = []
         for line in dataset:
             line = json.loads(line) 
@@ -92,7 +97,7 @@ def preprocess_file():
 
 
 
-    with open('/Users/bened/microsoft-presidio/new_dataset.json',"w") as dataset:
+    with open(LOCATE_PY_PARENT_DIR + '/new_dataset.json',"w") as dataset:
         
 
         for n_line in range(0,len(lines)):
