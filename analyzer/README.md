@@ -72,7 +72,9 @@ From the `microsoft-presidio/analyzer` directory:
     ```
 Now you have just run a client-server application with gRPC!</br>
 
-## An example
+The Analyzer is configured to support both Italian and English and the first is the default language used for the recognition.
+
+## A generic example
 
 File demo2.txt (which resides in the `files` folder) contains
         
@@ -112,6 +114,40 @@ Analyzer results saved into `analyzer-results/` folder (analyzer-results/demo2-r
     { "start": 0, "end": 4, "score": 0.85, "entity_type": "PERSON" }
     { "start": 33, "end": 44, "score": 0.85, "entity_type": "US_SSN" }
     { "start": 73, "end": 81, "score": 0.65, "entity_type": "US_DRIVER_LICENSE" }
+    
+## A specific example with the PIRA Dataset
+
+First you have to configure the server (in this example localhost:8061)
+
+    :::::::::::::::::: PRESIDIO ANALYZER (data loader) ::::::::::::::::::
+
+    1) Analyzer
+    2) Server configuration
+    3) Quit
+
+    Command: 2
+
+    =============== Server config ===============
+
+    IP ADDRESS: localhost
+    SERVER PORT: 8061
+
+Select `analyze` (command 3) and choose the file to analyze
+
+    SERVER INFO: localhost:8061
+
+    1) Setup AnalyzerEngine
+    2) Setup Analyze params
+    3) Analyze
+    4) Back
+
+    Command: 3
+    
+And the recognition process will start right away.
+
+The data loader will automatically split the PIRA dataset into separate files generated under the `files/pira-files/`  and iteratively send them to the Analyzer
+
+Analyzer results are saved into `analyzer-results/pira-results/`
 
 ## NOTE
 
