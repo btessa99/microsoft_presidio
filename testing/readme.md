@@ -31,13 +31,13 @@ To check the number of entities correctly recognized: <br>
 
 ### INSTALLATION
 
-git clone https://github.com/btessa99/microsoft_presidio.git
-pip3 install presidio-anonymizer
-pip3 install presidio-analyzer
-pip3 install numpy
-pip3 install geopy
-pip3 install spacy
-python3 -m spacy download it_core_news_sm
+    $ git clone https://github.com/btessa99/microsoft_presidio.git
+    
+    $ pip3 install --upgrade pip
+    $ pip3 install presidio-anonymizer
+    $ pip3 install presidio-analyzer
+    $ python3 -m spacy download it_core_news_sm
+  
 
 From the microsoft_presidio/tetsing directory:
 ```console
@@ -49,6 +49,8 @@ To start see how many entities were recognized.
 ### DEPLOYMENT
 
 From the microsoft_presidio/tetsing directory:
+
+Build the docker image
 ```console
 docker build -t test-pira .
 ```
