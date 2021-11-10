@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+// define the analyzer service
+service AnalyzerEntity {
+    rpc sendFileToAnalyze(stream DataFile) returns (Ack); 
+    rpc sendEngineOptions(AnalyzerEngineOptions) returns (Ack);
+    rpc sendOptions(AnalyzeOptions) returns (Ack);
+    rpc getAnalyzerResults(Request) returns (stream AnalyzerResults);
+}
+
+// files are divided into chunks (1MB)
+message DataFile {
+    string chunk = 1;
+}
+
+message Request {
+    string uuidClient = 1;
+}
+
+// options supported by AnalyzerEngine
+message AnalyzerEngineOptions {
+    string uuidClient = 1;
+    optional string regex = 2; 
+    optional string deny_list = 3; 
+    optional string nlp_engine = 4;
+    optional string app_tracer = 5;
+    optional string log_decision_process = 6;
+    optional string default_score_threshold = 7;
+    optional string supported_languages = 8;
+}
+
+// options supported by analyze() function
+message AnalyzeOptions {
+    string uuidClient = 1;
+    optional string language = 2;
+    optional string correlation_id = 3;
+    optional string score_threshold = 4;
+    optional string entities = 5; // ex. PERSON, LOCATION, NRP etc
+    optional string return_decision_process = 6;
+}
+
+// results provided from presidio analyzer
+message AnalyzerResults {
+    string entity_type = 1;
+    int32 start = 2;
+    int32 end = 3;
+    float score = 4;
+    optional string analysis_explanation = 5;
+}
+
+message Ack {
+    string uuidClient = 1;
+    optional int32 chunks = 2;
+}
