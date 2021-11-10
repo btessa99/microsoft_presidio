@@ -9,11 +9,13 @@ This happens in two steps:
 It takes the `pira_dataset.jsonl` file and makes sure that the data and label field of each document is fixed for a better ananlysis and recognition process.	<br>
 All special characters such as “;” and “\n” can be simply removed with a regular expression, while fixing of the labels requires the following steps: <br>
 
-***IF*** the label tag is “No_Tag” ***THEN***		<br>			                      
+***IF*** the label tag is “No_Tag” ***THEN***	:	                      
 Discard the whole document since it does not contain any relevant information.
-***IF*** one or more fields in the header are labeled as “Text_Column”  ***THEN***  <br> 
+
+***IF*** one or more fields in the header are labeled as “Text_Column”  ***THEN*** :   <br>
 Remove these annotations from the label array.   
-***ELSE***   	<br>                                                                                                                          
+
+***ELSE***  :                                                                                                                        
 A header field is annotated with a label different from the above and one annotation per line must be added.                                                                In order to do so, we need to find for each entity in the line its starting and ending position in the document and add it to the label array.
 Once the preprocessing phase will be completed, the newly processed JSON objects will be saved into a new file that will be used later for the analysis and anonymization process.
 
