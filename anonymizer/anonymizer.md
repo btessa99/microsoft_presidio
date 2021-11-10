@@ -11,6 +11,10 @@ Let's now describe them:
 
     Given a location in the form of a string representing a city name or an address , it returns its latitude and longitude in decimal degrees.
     
+- #### `get_dd_coordinates(self,location)`
+
+    Given a locations return its coordinates in decimal degrees.
+    
 - #### `from_dms_to_dd(self,coordinate_dms)`
     
     Converts a coordinate from decimal minutes seconds format to decimal degrees
@@ -106,26 +110,6 @@ If only the latitude or longitude is given as a input to one of the functions, t
 `$ python -m spacy download en_core_web_lg`
 
 `$ git clone https://github.com/btessa99/microsoft_presidio.git`
-
-Add geocoordinates.py to presidio_anonymizer/operators
-Add Geocoordinates to presidio_anonymizer/operators/init.py
-    
-        from .geocoordinates import Geocoordinates
-
-        __all__ = ["OperatorType",
-           "Operator",
-           "Hash",
-           "Mask",
-           "Redact",
-           "Replace",
-           "Custom",
-           "Encrypt",
-           "Decrypt",
-           "Geocoordinates",
-           "OperatorsFactory"]
-   Restart the anonimyzer
-
- #### Geopy:
 
 `$ pip3 install geopy`
     
