@@ -1,20 +1,64 @@
 # HOW TO RUN THE TEST
 
-To perform tests on the Pira dataset, do as follows:
+The testing folder purpose is to check how many entities were correctly recognizer by the Analyzer module of Presidio. 
+Each entity is annotated with a tag describing its nature (e.g. GEOLOCATION, PERSON_NAME)
 
-- 1: Clone this repository `$ git clone https://github.com/btessa99/microsoft_presidio.git` and add under the microsoft_presidio/testing folder the PIRA dataset contained in the *pira_dataset.json* file at [this link](https://github.com/tonellotto/pira-project/tree/main/deliverable2) 
+This happens in two steps:
 
-- 2: ` $python -m spacy download it_core_news_sm`
+### PREPROCESSING
+It takes the `pira_dataset.jsonl` file and makes sure that the data and label field of each document is fixed for a better ananlysis and recognition process.	<br>
+All special characters such as “;” and “\n” can be simply removed with a regular expression, while fixing of the labels requires the following steps: <br>
 
-So that the AnalyzerEngine will be able to support the Italian language
+***IF*** the label tag is “No_Tag” ***THEN***		<br>			                      
+Discard the whole document since it does not contain any relevant information.
+***IF*** one or more fields in the header are labeled as “Text_Column”  ***THEN***  <br> 
+Remove these annotations from the label array.   
+***ELSE***   	<br>                                                                                                                          
+A header field is annotated with a label different from the above and one annotation per line must be added.                                                                In order to do so, we need to find for each entity in the line its starting and ending position in the document and add it to the label array.
+Once the preprocessing phase will be completed, the newly processed JSON objects will be saved into a new file that will be used later for the analysis and anonymization process.
+
+### RECOGNITION
 
 
-- 3: ` $python preprocessing.py`
+To check the number of entities correctly recognized: <br>	
 
-To preprocess the PIRA dataset and print it onto the *new_dataset.json* file so that it can be in a suitable format for the recognition and anonymization
+•	Create a list of the entities that are supposed to be recognized; each entity can be easily retrieved since each object in the labels array contains the initial and final character of a specific entity to recognize <br>	
+
+•	Create a list of entities the Analyzer recognized. Again, the Analyzer does not return the value of the entity but its position in the text. <br>	
+
+•	Check for each element in the result list if it’s contained in the list of entities to recognize. If the answer is yes, then it is possible to increase the true positive counter. <br>	
 
 
-- 4: ` $python PIRA_Recognition.py`
+### INSTALLATION
 
-To get the results of the recognition and anonymization process
+git clone https://github.com/btessa99/microsoft_presidio.git
+pip3 install presidio-anonymizer
+pip3 install presidio-analyzer
+pip3 install numpy
+pip3 install geopy
+pip3 install spacy
+python3 -m spacy download it_core_news_sm
+
+From the microsoft_presidio/tetsing directory:
+```console
+python Pira-Recognizer.py
+```
+To start see how many entities were recognized.
+
+
+### DEPLOYMENT
+
+From the microsoft_presidio/tetsing directory:
+```console
+docker build -t test-pira .
+```
+To download all the necessary libraries and then to run the test
+
+```console
+python Pira-Recognizer.py
+```
+
+
+
+
 
