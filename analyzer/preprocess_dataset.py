@@ -24,7 +24,7 @@ def preprocess_file():
     Label = namedtuple('Label', 'start, end, tag')
 
 
-    with open(LOCATE_PY_PARENT_DIR + '/pira_dataset.jsonl') as dataset:
+    with open('../pira_dataset.jsonl') as dataset:
         lines = []
         for line in dataset:
             line = json.loads(line) 
@@ -97,7 +97,7 @@ def preprocess_file():
 
 
 
-    with open(LOCATE_PY_PARENT_DIR + '/new_dataset.json',"w") as dataset:
+    with open('../new_dataset.json',"w") as dataset:
         
 
         for n_line in range(0,len(lines)):
@@ -119,6 +119,7 @@ def preprocess_file():
  
 
  
+
 
 
 
