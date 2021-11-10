@@ -412,4 +412,11 @@ docker run –dp 8061:8061 grpc-analyzer
 3) The docker run internally executes analyzer_server.py. Open one more terminal and run the client which now can access the docker server
 ```console
 python data_loader.py
+
+to run generic examples or 
+
+``````console
+python dataloader.py
 ```
+
+to run more specific examples
