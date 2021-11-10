@@ -65,32 +65,12 @@ def calculate_coordinates(self,*args):
             radius in kilometers(float/integer)
 
     """
-    print(len(args))
 
     start_latitude,start_longitude,radius = 0,0,0
 
-
-    if(len(args) == 2): #case 2. We need to find the coordinates of the location
+    if(len(args) == 2):
+        start_latitude,start_longitude = get_dd_coordinates(self,args[0])
         radius = args[1]
-        location = args[0]
-        if(("º" in location ) or ("°" in location) or ("°" in location) or ("˚" in location)): #location expressed with coordinates in DMS format
-            if("N" in location or "S" in location):
-                start_latitude = from_dms_to_dd(self,location)
-            else:
-                start_longitude = from_dms_to_dd(self,location)
-                
-        elif("." in location): # a single coordinate is given
-            if("N" in location or "S" in location): #single latitude
-                start_latitude = location.strip('NS+-')
-            elif("E" in location or "W" in location): #single longitude
-                start_longitude = location.strip('EW+-')
-            else:
-                start_latitude,start_longitude = location.split(",")
-
-
-        else:
-            start_latitude,start_longitude = find_coordinates( self,location )
-
     else:
         radius = args[2]
         if(type(args[1]) == float):
@@ -124,7 +104,7 @@ def calculate_coordinates(self,*args):
         return str(abs(dest.latitude))+direction,0
     elif(start_latitude == 0):
         direction = "E"
-        if(dest.latitude < 0):
+        if(start_longitude < 0):
             direction = "W"
         return 0,str(abs(dest.longitude))+direction
     else:
@@ -200,6 +180,38 @@ def donut_masking(self,location,internal_radius,external_radius):
     else:
         return calculate_coordinates(self,lat,lon,new_radius)
 
+def get_dd_coordinates(self,location):
+
+    start_longitude,start_latitude = 0,0
+
+    if "," in location:       #check if location represents a couple of coordinates or a city/address
+        lat,lon = location.split(",")
+        if(type(lat) != float): #pair of coordinates in DMS format
+            start_latitude,start_longitude = from_dms_to_dd(self,lat),from_dms_to_dd(self,lon)
+
+    elif(("º" in location ) or ("°" in location) or ("°" in location) or ("˚" in location)): #single latitude or longitude expressed with coordinates in DMS format
+        if("N" in location or "S" in location):
+            start_latitude = from_dms_to_dd(self,location)
+        else:
+            start_longitude = from_dms_to_dd(self,location)
+            
+    elif("." in location): # a single coordinate in DD is given
+        if("N" in location ): #single latitude
+            start_latitude = location.strip('N') 
+        elif( "S" in location):
+            start_latitude = float(location.strip('S')) * (-1)
+
+        elif( "E" in location):
+             start_longitude = location.strip('E') 
+            
+        else:
+            start_longitude = float(location.strip('W')) * (-1)
+
+    else:
+        start_latitude,start_longitude = find_coordinates(self,location)
+
+    return start_latitude,start_longitude
+
 
 def standard_gaussian(self,location,variance):
 
@@ -210,32 +222,14 @@ def standard_gaussian(self,location,variance):
       :param variance: an integer representing the variance of the gaussian
 
     """
-     
+       
+    lat,lon = get_dd_coordinates(self,location)
 
-    
-    lat,lon = 0,0
-
-    if "," in location:       #check if location represents a couple of coordinates or a city/address
-        lat,lon = location.split(",")
-        if(type(lat) != float): #pair of coordinates in DMS format
-            lat,lon = from_dms_to_dd(self,lat),from_dms_to_dd(self,lon)
-    else:
-        if(("º" in location ) or ("°" in location) or ("°" in location) or ("˚" in location)): #only latitude or longitude given in DMS format
-            if("N" in location or "S" in location):
-                lat = from_dms_to_dd(self,location)
-
-            else:
-                lon = from_dms_to_dd(self,location)
-        else:
-            lat,lon = find_coordinates( self,location )
-
-
-    
-
-    if(lat <= -90 or lat >= 90):
+ 
+    if(float(lat) <= -90 or float(lat) >= 90):
         raise Exception('INVALID LATITUDE')
 
-    if(lon <= -180 or lon >= 180):
+    if(float(lon) <= -180 or float(lon) >= 180):
        raise Exception('INVALID LONGITUDE')
 
 
@@ -244,10 +238,22 @@ def standard_gaussian(self,location,variance):
 
     latitude,longitude = new_point[0][0],new_point[0][1]
 
-    if(latitude < -90.0 or latitude > 90.0 or longitude < -180.0 or longitude > 180.0):
-        latitude,longitude = wrap(self,latitude,longitude)
+    #if(latitude < -90.0 or latitude > 90.0 or longitude < -180.0 or longitude > 180.0):
+        #latitude,longitude = wrap(self,latitude,longitude)
 
-    return latitude,longitude
+    if(lon == 0):
+        direction = "N"
+        if(latitude < 0):
+            direction = "S"
+        return str(abs(latitude))+direction,0
+    elif(lat == 0):
+        direction = "E"
+        if(lon < 0):
+            direction = "W"
+        return 0,str(abs(longitude))+direction
+
+    else:
+        return latitude,longitude
 
 
 def bimodal_gaussian(self,location1,variance1,location2,variance2):
@@ -307,5 +313,3 @@ def wrap(self,latitude,longitude):
     longitude = (longitude + 180) % 360 - 180 #fix the longitude
 
     return latitude,longitude
-
-
