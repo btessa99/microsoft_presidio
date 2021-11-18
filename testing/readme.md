@@ -1,4 +1,4 @@
-# HOW TO RUN THE TEST
+# HOW TO RUN THE TESTS
 
 The testing folder purpose is to check how many entities were correctly recognized by the Analyzer module of Presidio. 
 Each entity is annotated with a tag describing its nature (e.g. GEOLOCATION, PERSON_NAME)
