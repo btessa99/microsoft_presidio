@@ -147,7 +147,7 @@ And the recognition process will start right away.
 
 The data loader will automatically split the PIRA dataset into separate files generated under the `files/pira-files/`  and iteratively send them to the Analyzer
 
-Analyzer results are saved into `analyzer-results/pira-results/`
+Analyzer results are saved into `analyzer-results/pira_results/`
 
 ## NOTE
 
@@ -399,7 +399,7 @@ This is an example of a deny-list based setup.
 	clientAnalyzer.closeConnection()
 ```
 ## Deployment
-From the microsoft-presidio/analyzer directory
+From the microsoft_presidio/analyzer directory
 
 1) Build the docker image
 ```console
