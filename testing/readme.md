@@ -50,7 +50,7 @@ To start see how many entities were recognized.
 
 ### DEPLOYMENT
 
-From the microsoft_presidio/tetsing directory:
+From the microsoft_presidio/testing directory:
 
 Build the docker image
 ```console
