@@ -70,8 +70,6 @@ class ClientEntity:
                 print("FROM CLIENT: sending analyzer results...")
                 response = self.stub.sendRecognizerResults(readRecognizerResults(filename, uuidClient))
 
-                print("RISPO")
-
                 if response.uuidClient == uuidClient:
                     print(f"FROM SERVER: analyzer results received correctly. UUID: {uuidClient}")
 
