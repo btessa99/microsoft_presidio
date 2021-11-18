@@ -52,11 +52,11 @@ To start see how many entities were recognized.
 
 From the microsoft_presidio/testing directory:
 
-Build the docker image
+Build the docker image to download all the necessary libraries
 ```console
 docker build -t test-pira .
 ```
-To download all the necessary libraries and then to run the test
+To run the test:
 
 ```console
 python Pira-Recognizer.py
