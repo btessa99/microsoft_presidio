@@ -234,7 +234,7 @@ So we can start anonymization using command 3 and the anonymization of all of th
     Command: 3
 
 
-Anonymizer results saved into `anonymizer-results/pira_results/` folderl 
+Anonymizer results saved into `anonymizer-results/pira_results/` folder
 
 
 ### An example of deanonymization
