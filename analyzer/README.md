@@ -56,7 +56,7 @@ To run examples:
     $ python3 -m spacy download en_core_web_lg
     $ python3 -m pip install grpcio grpcio-tools
 
-From the `microsoft-presidio/analyzer` directory:
+From the `microsoft_presidio/analyzer` directory:
 
 1) Run the server
     ```console
